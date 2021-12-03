@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\BenConstable\Localize\Determiners;
+namespace Localize\BenConstable\Localize\Determiners;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use BenConstable\Localize\Determiners\Host;
 use Illuminate\Support\Collection;
 
-class HostTest extends PHPUnit_Framework_TestCase
+class HostTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }
