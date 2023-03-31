@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\BenConstable\Localize\Determiners;
+namespace Localize\BenConstable\Localize\Determiners;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use BenConstable\Localize\Determiners\Parameter;
 
-class ParameterTest extends PHPUnit_Framework_TestCase
+class ParameterTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }

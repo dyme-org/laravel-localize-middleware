@@ -1,30 +1,33 @@
 <?php
 
-namespace Tests\BenConstable\Localize;
+namespace Localize\BenConstable\Localize;
 
+use Illuminate\Container\Container;
+use Illuminate\Support\Facades\Config;
 use Mockery;
-use PHPUnit_Framework_TestCase;
 use BenConstable\Localize\Determiners;
 use BenConstable\Localize\DeterminerManager;
+use PHPUnit\Framework\TestCase;
 
-class DeterminerManagerTest extends PHPUnit_Framework_TestCase
+class DeterminerManagerTest extends \Illuminate\Foundation\Testing\TestCase
 {
-    private $app;
+    protected $app;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->app = [
-            'config' => [
+        $this->app = Container::getInstance();
+
+        $this->app->offsetSet('config', [
                 'localize-middleware' => require(__DIR__ . '/../../src/config/localize-middleware.php'),
                 'app' => [
                     'fallback_locale' => 'de'
                 ]
-            ]
-        ];
+        ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
+
         Mockery::close();
     }
 
@@ -88,5 +91,10 @@ class DeterminerManagerTest extends PHPUnit_Framework_TestCase
         $manager = new DeterminerManager($this->app);
 
         $this->assertInstanceOf(Determiners\DeterminerInterface::class, $manager->driver());
+    }
+
+    public function createApplication()
+    {
+        return $this->app;
     }
 }

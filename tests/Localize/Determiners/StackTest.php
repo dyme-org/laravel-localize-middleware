@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\BenConstable\Localize\Determiners;
+namespace Localize\BenConstable\Localize\Determiners;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use BenConstable\Localize\Determiners\Stack;
 use BenConstable\Localize\Determiners\Cookie;
 use BenConstable\Localize\Determiners\Session;
 use BenConstable\Localize\Determiners\Parameter;
 
-class StackTest extends PHPUnit_Framework_TestCase
+class StackTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }
