@@ -88,5 +88,20 @@ return [
     'hosts' => [
         'en' => 'www.example.co.uk',
         'fr' => 'www.example.fr'
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available locales.
+    |--------------------------------------------------------------------------
+    |
+    | Define available locales of your application. These values will be used by
+    | the middleware to determine if the given locale should be used across the app.
+    |
+    */
+
+    'available_locales' => [
+        'en',
+        'nl',
+    ],
 ];
