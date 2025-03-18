@@ -12,14 +12,14 @@ abstract class Determiner implements DeterminerInterface
      *
      * @var  string|null
      */
-    protected $fallback = null;
+    protected ?string $fallback = null;
 
     /**
      * {@inheritdoc}
      */
-    public function setFallback($fallback)
+    public function setFallback(string $locale): DeterminerInterface|static
     {
-        $this->fallback = $fallback;
+        $this->fallback = $locale;
 
         return $this;
     }

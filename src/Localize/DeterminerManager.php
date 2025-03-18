@@ -2,23 +2,30 @@
 
 namespace BenConstable\Localize;
 
+use BenConstable\Localize\Determiners\Cookie;
+use BenConstable\Localize\Determiners\Header;
+use BenConstable\Localize\Determiners\Host;
+use BenConstable\Localize\Determiners\Parameter;
+use BenConstable\Localize\Determiners\Session;
+use BenConstable\Localize\Determiners\Stack;
+use Illuminate\Http\Request;
 use Illuminate\Support\Manager;
 use Illuminate\Support\Collection;
-use BenConstable\Localize\Determiners;
 
 /**
  * Manager class for the different locale determiners.
+ * @method string determineLocale(Request  $request)
  */
 class DeterminerManager extends Manager
 {
     /**
      * Get a cookie determiner instance.
      *
-     * @return  \BenConstable\Localize\Determiners\Cookie
+     * @return  Cookie
      */
-    protected function createCookieDriver()
+    protected function createCookieDriver(): Cookie
     {
-        $determiner = new Determiners\Cookie(
+        $determiner = new Cookie(
             $this->container['config']['localize-middleware']['cookie']
         );
 
@@ -30,11 +37,11 @@ class DeterminerManager extends Manager
     /**
      * Get a host determiner instance.
      *
-     * @return  \BenConstable\Localize\Determiners\Host
+     * @return  Host
      */
-    protected function createHostDriver()
+    protected function createHostDriver(): Host
     {
-        $determiner = new Determiners\Host(
+        $determiner = new Host(
             new Collection($this->container['config']['localize-middleware']['hosts'])
         );
 
@@ -46,11 +53,11 @@ class DeterminerManager extends Manager
     /**
      * Get a parameter determiner instance.
      *
-     * @return  \BenConstable\Localize\Determiners\Parameter
+     * @return  Parameter
      */
-    protected function createParameterDriver()
+    protected function createParameterDriver(): Parameter
     {
-        $determiner = new Determiners\Parameter(
+        $determiner = new Parameter(
             $this->container['config']['localize-middleware']['parameter']
         );
 
@@ -62,11 +69,11 @@ class DeterminerManager extends Manager
     /**
      * Get a header determiner instance.
      *
-     * @return  \BenConstable\Localize\Determiners\Header
+     * @return  Header
      */
-    protected function createHeaderDriver()
+    protected function createHeaderDriver(): Header
     {
-        $determiner = new Determiners\Header(
+        $determiner = new Header(
             $this->container['config']['localize-middleware']['header']
         );
 
@@ -78,11 +85,11 @@ class DeterminerManager extends Manager
     /**
      * Get a session determiner instance.
      *
-     * @return  \BenConstable\Localize\Determiners\Session
+     * @return  Session
      */
-    protected function createSessionDriver()
+    protected function createSessionDriver(): Session
     {
-        $determiner = new Determiners\Session(
+        $determiner = new Session(
             $this->container['config']['localize-middleware']['session']
         );
 
@@ -94,9 +101,9 @@ class DeterminerManager extends Manager
     /**
      * Get a stack determiner instance.
      *
-     * @return  \BenConstable\Localize\Determiners\Stack
+     * @return  Stack
      */
-    protected function createStackDriver()
+    protected function createStackDriver(): Stack
     {
         $determiners = (new Collection((array) $this->container['config']['localize-middleware']['driver']))
             ->filter(function ($driver) {
@@ -106,7 +113,7 @@ class DeterminerManager extends Manager
                 return $this->driver($driver)->setFallback(null);
             });
 
-        return (new Determiners\Stack($determiners))
+        return (new Stack($determiners))
             ->setFallback($this->container['config']['app']['fallback_locale']);
     }
 
@@ -115,7 +122,7 @@ class DeterminerManager extends Manager
      *
      * @return  string
      */
-    public function getDefaultDriver()
+    public function getDefaultDriver(): string
     {
         $driver = $this->container['config']['localize-middleware']['driver'];
 

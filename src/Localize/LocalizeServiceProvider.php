@@ -14,14 +14,14 @@ class LocalizeServiceProvider extends ServiceProvider
      *
      * @var  boolean
      */
-    protected $defer = true;
+    protected bool $defer = true;
 
     /**
      * Perform post-registration booting of services.
      *
      * @return  void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../config/localize-middleware.php' => config_path('localize-middleware.php')
@@ -33,7 +33,7 @@ class LocalizeServiceProvider extends ServiceProvider
      *
      * @return  void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(DeterminerManager::class, function ($app) {
             return new DeterminerManager($app);
@@ -45,7 +45,7 @@ class LocalizeServiceProvider extends ServiceProvider
      *
      * @return  array
      */
-    public function provides()
+    public function provides(): array
     {
         return [
             DeterminerManager::class

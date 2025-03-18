@@ -10,30 +10,21 @@ use Illuminate\Http\Request;
 class Parameter extends Determiner
 {
     /**
-     * Name of the request parameter that holds the locale.
-     *
-     * @var string
-     */
-    private $requestParam;
-
-    /**
      * Constructor.
      *
      * @param  string  $requestParam  Name of the request parameter that holds the locale
      * @return  void
      */
-    public function __construct($requestParam)
-    {
-        $this->requestParam = $requestParam;
-    }
+    public function __construct(private string $requestParam)
+    {}
 
     /**
      * Determine the locale from the request parameters.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return  string
      */
-    public function determineLocale(Request $request)
+    public function determineLocale(Request $request): string
     {
         return $request->input($this->requestParam, $this->fallback);
     }

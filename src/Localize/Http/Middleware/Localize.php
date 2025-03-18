@@ -14,39 +14,22 @@ use Illuminate\Http\Request;
 class Localize
 {
     /**
-     * Laravel application.
-     *
-     * @var  \Illuminate\Foundation\Application
-     */
-    private $app;
-
-    /**
-     * Application localizer.
-     *
-     * @var  \BenConstable\Localize\DeterminerManager
-     */
-    private $determinerManager;
-
-    /**
      * Constructor.
      *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @param  \BenConstable\Localize\DeterminerManager  $determinerManager
+     * @param  Application  $app
+     * @param  DeterminerManager  $determinerManager
      * @return  void
      */
     public function __construct(
-        Application $app,
-        DeterminerManager $determinerManager
-    ) {
-        $this->app = $app;
-        $this->determinerManager = $determinerManager;
-    }
+        private Application $app,
+        private DeterminerManager $determinerManager
+    ) {}
 
     /**
      * Handle an incoming request.
      *
      * @param  Request  $request
-     * @param  \Closure  $next
+     * @param  Closure  $next
      * @return  mixed
      */
     public function handle($request, Closure $next)

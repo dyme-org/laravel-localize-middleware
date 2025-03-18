@@ -10,30 +10,21 @@ use Illuminate\Http\Request;
 class Cookie extends Determiner
 {
     /**
-     * Name of the cookie that holds the locale.
-     *
-     * @var  string
-     */
-    private $cookieName;
-
-    /**
      * Constructor.
      *
      * @param  string  $cookieName  Name of the cookie that holds the locale
      * @return  void
      */
-    public function __construct($cookieName)
-    {
-        $this->cookieName = $cookieName;
-    }
+    public function __construct(private string $cookieName)
+    {}
 
     /**
      * Determine the locale from a cookie.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return  string
      */
-    public function determineLocale(Request $request)
+    public function determineLocale(Request $request): string
     {
         return $request->cookie($this->cookieName, $this->fallback);
     }

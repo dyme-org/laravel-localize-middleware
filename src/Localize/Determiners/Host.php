@@ -12,30 +12,21 @@ use Illuminate\Support\Collection;
 class Host extends Determiner
 {
     /**
-     * Locale to host mapping.
-     *
-     * @var  \Illuminate\Support\Collection
-     */
-    private $hostMapping;
-
-    /**
      * Constructor.
      *
-     * @param  \Illuminate\Support\Collection  $hostMapping  Locale to host mapping
+     * @param  Collection  $hostMapping  Locale to host mapping
      * @return  void
      */
-    public function __construct(Collection $hostMapping)
-    {
-        $this->hostMapping = $hostMapping;
-    }
+    public function __construct(private Collection $hostMapping)
+    {}
 
     /**
      * Determine the locale from the current host.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return  string
      */
-    public function determineLocale(Request $request)
+    public function determineLocale(Request $request): string
     {
         return $this->hostMapping->flip()->get($request->getHost(), $this->fallback);
     }

@@ -10,30 +10,21 @@ use Illuminate\Http\Request;
 class Session extends Determiner
 {
     /**
-     * Name of the session key that holds the locale.
-     *
-     * @var  string
-     */
-    private $sessionKey;
-
-    /**
      * Constructor.
      *
      * @param  string  $sessionKey  Name of the session key that holds the locale
      * @return  void
      */
-    public function __construct($sessionKey)
-    {
-        $this->sessionKey = $sessionKey;
-    }
+    public function __construct(private string $sessionKey)
+    {}
 
     /**
      * Determine the locale from the session.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return  string
      */
-    public function determineLocale(Request $request)
+    public function determineLocale(Request $request): string
     {
         return $request->session()->get($this->sessionKey, $this->fallback);
     }

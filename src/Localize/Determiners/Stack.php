@@ -12,30 +12,21 @@ use Illuminate\Support\Collection;
 class Stack extends Determiner
 {
     /**
-     * Underlying collection of determiners.
-     *
-     * @var  \Illuminate\Support\Collection
-     */
-    private $determiners;
-
-    /**
      * Constructor.
      *
-     * @param  \Illuminate\Support\Collection  $determiners
+     * @param  Collection  $determiners
      * @return  void
      */
-    public function __construct(Collection $determiners)
-    {
-        $this->determiners = $determiners;
-    }
+    public function __construct(private Collection $determiners)
+    {}
 
     /**
      * Determine the locale from the underlying determiner stack.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return  string|null
+     * @param  Request  $request
+     * @return string
      */
-    public function determineLocale(Request $request)
+    public function determineLocale(Request $request): string
     {
         $locale = $this->determiners
             ->map(function ($determiner) use ($request) {
@@ -50,7 +41,7 @@ class Stack extends Determiner
     /**
      * Get the underlying determiner stack.
      *
-     * @return  \Illuminate\Support\Collection
+     * @return  Collection
      */
     public function getDeterminers()
     {
